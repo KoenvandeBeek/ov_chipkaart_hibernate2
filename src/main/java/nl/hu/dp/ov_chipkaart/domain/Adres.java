@@ -1,11 +1,6 @@
 package nl.hu.dp.ov_chipkaart.domain;
 
-import org.hibernate.annotations.Entity;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 public class Adres {
@@ -16,14 +11,14 @@ public class Adres {
     private String huisnummer;
     private String straat;
     private String woonplaats;
-    @Transient
+    @OneToOne
+    @JoinColumn(name = "adres_id", foreignKey = @ForeignKey(name = "adres_id"))
     private Reiziger reiziger;
 
     public Adres(){
     }
 
-    public Adres(int adres_id, String postcode, String huisnummer, String straat, String woonplaats) {
-        this.adres_id = adres_id;
+    public Adres(String postcode, String huisnummer, String straat, String woonplaats) {
         this.postcode = postcode;
         this.huisnummer = huisnummer;
         this.straat = straat;

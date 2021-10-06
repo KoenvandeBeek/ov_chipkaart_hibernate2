@@ -1,10 +1,6 @@
 package nl.hu.dp.ov_chipkaart.domain;
 
-import org.hibernate.annotations.Entity;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +13,12 @@ public class Reiziger {
     private String tussenvoegsel;
     private String achternaam;
     private Date geboortedatum;
-    @Transient
+    @OneToOne
+    @JoinColumn(name = "reiziger_id", foreignKey = @ForeignKey(name = "reiziger_id"))
     private Adres adres;
-    @Transient
-    private List<OVChipkaart> ovchipkaarts = new ArrayList<OVChipkaart>();
+    @OneToMany
+    @JoinColumn(name = "reiziger_id", foreignKey = @ForeignKey(name = "reiziger_id"))
+    private List<ov_chipkaart> ovchipkaarts = new ArrayList<ov_chipkaart>();
 
     public Reiziger(){}
 
@@ -79,19 +77,19 @@ public class Reiziger {
         this.adres = adres;
     }
 
-    public void addOVChipkaart(OVChipkaart ovChipkaart){
-        ovChipkaart.setReiziger_id(this.getReiziger_id());
-        ovchipkaarts.add(ovChipkaart);
+    public void addOVChipkaart(ov_chipkaart ovchipkaart){
+//        ovchipkaart.setReiziger_id(this.getReiziger_id());
+        ovchipkaarts.add(ovchipkaart);
     }
 
-    public void removeOVChipkaart(OVChipkaart ovChipkaart){
-        ovchipkaarts.remove(ovChipkaart);
+    public void removeOVChipkaart(ov_chipkaart ovchipkaart){
+        ovchipkaarts.remove(ovchipkaart);
     }
-    public List<OVChipkaart> getOvchipkaarts() {
+    public List<ov_chipkaart> getOvchipkaarts() {
         return ovchipkaarts;
     }
 
-    public void setOvchipkaarts(List<OVChipkaart> ovchipkaarts) {
+    public void setOvchipkaarts(List<ov_chipkaart> ovchipkaarts) {
         this.ovchipkaarts = ovchipkaarts;
     }
 

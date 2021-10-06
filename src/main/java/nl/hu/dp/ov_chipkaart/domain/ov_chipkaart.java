@@ -1,31 +1,28 @@
 package nl.hu.dp.ov_chipkaart.domain;
 
-import org.hibernate.annotations.Entity;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
 
 @Entity
-public class OVChipkaart {
+public class ov_chipkaart {
     @Id
     @Column(name = "kaart_nummer")
     private int kaart_nummer;
     private Date geldig_tot;
     private int klasse;
     private double saldo;
-    private int reiziger_id;
+    @ManyToOne
+    @JoinColumn(name = "kaart_nummer", foreignKey = @ForeignKey(name = "kaart_nummer"))
+    private Reiziger reiziger;
     @Transient
     private ArrayList<Product> producten = new ArrayList<>();
 
-    public OVChipkaart(){
+    public ov_chipkaart(){
 
     }
 
-    public OVChipkaart(Date geldig_tot, int klasse, double saldo) {
+    public ov_chipkaart(Date geldig_tot, int klasse, double saldo) {
         this.geldig_tot = geldig_tot;
         this.klasse = klasse;
         this.saldo = saldo;
@@ -63,8 +60,8 @@ public class OVChipkaart {
         this.saldo = saldo;
     }
 
-    public int getReiziger_id() {
-        return reiziger_id;
+    public Reiziger getReiziger() {
+        return reiziger;
     }
 
     public void addProduct(Product product){
@@ -83,11 +80,9 @@ public class OVChipkaart {
         this.producten = producten;
     }
 
-    public void setReiziger_id(int reiziger_id) {
-        this.reiziger_id = reiziger_id;
-    }
+    public void setReiziger(Reiziger reiziger) { this.reiziger = reiziger; }
 
     public String toString(){
-        return "kaartnummer: " + "" + kaart_nummer + ", " + "geldig_tot: " + " " + geldig_tot  + ", " + "klasse: " + " " + klasse + ", " + "saldo: " + " " + saldo  + ", " + "reizigerid: " + " " + reiziger_id;
+        return "kaartnummer: " + "" + kaart_nummer + ", " + "geldig_tot: " + " " + geldig_tot  + ", " + "klasse: " + " " + klasse + ", " + "saldo: " + " " + saldo  + ", " + "reizigerid: " + " " + reiziger;
     }
 }

@@ -1,8 +1,7 @@
 package nl.hu.dp.ov_chipkaart.domain;
 
-import org.hibernate.annotations.Entity;
-
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ public class Product {
     private String beschrijving;
     private int prijs;
     @Transient
-    private List<OVChipkaart> ovchipkaarten = new ArrayList<>();
+    private List<ov_chipkaart> ovchipkaarten = new ArrayList<>();
 
     public Product(){}
     public Product(String naam, String beschrijving, int prijs) {
@@ -49,11 +48,11 @@ public class Product {
         this.beschrijving = beschrijving;
     }
 
-    public List<OVChipkaart> getOvchipkaarten() {
+    public List<ov_chipkaart> getOvchipkaarten() {
         return ovchipkaarten;
     }
 
-    public void setOvchipkaarten(List<OVChipkaart> ovchipkaarten) {
+    public void setOvchipkaarten(List<ov_chipkaart> ovchipkaarten) {
         this.ovchipkaarten = ovchipkaarten;
     }
 
