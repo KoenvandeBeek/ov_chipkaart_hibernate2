@@ -3,6 +3,7 @@ package nl.hu.dp.ov_chipkaart.domain;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class ov_chipkaart {
@@ -13,10 +14,14 @@ public class ov_chipkaart {
     private int klasse;
     private double saldo;
     @ManyToOne
-    @JoinColumn(name = "kaart_nummer", foreignKey = @ForeignKey(name = "kaart_nummer"))
+    @JoinColumn(name = "reiziger_id")
     private Reiziger reiziger;
-    @Transient
-    private ArrayList<Product> producten = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "ov_chipkaart_product",
+            joinColumns = { @JoinColumn(name = "kaart_nummer")},
+            inverseJoinColumns = {@JoinColumn(name = "product_nummer")}
+    )
+    private List<Product> producten = new ArrayList<>();
 
     public ov_chipkaart(){
 
@@ -72,17 +77,17 @@ public class ov_chipkaart {
         producten.remove(product);
     }
 
-    public ArrayList<Product> getProducten() {
+    public List<Product> getProducten() {
         return producten;
     }
 
-    public void setProducten(ArrayList<Product> producten) {
+    public void setProducten(List<Product> producten) {
         this.producten = producten;
     }
 
     public void setReiziger(Reiziger reiziger) { this.reiziger = reiziger; }
 
     public String toString(){
-        return "kaartnummer: " + "" + kaart_nummer + ", " + "geldig_tot: " + " " + geldig_tot  + ", " + "klasse: " + " " + klasse + ", " + "saldo: " + " " + saldo  + ", " + "reizigerid: " + " " + reiziger;
+        return "kaartnummer: " + "" + kaart_nummer + ", " + "geldig_tot: " + " " + geldig_tot  + ", " + "klasse: " + " " + klasse + ", " + "saldo: " + " " + saldo + producten;
     }
 }

@@ -1,9 +1,6 @@
 package nl.hu.dp.ov_chipkaart.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 @Entity
@@ -14,7 +11,7 @@ public class Product {
     private String naam;
     private String beschrijving;
     private int prijs;
-    @Transient
+    @ManyToMany(mappedBy = "producten", targetEntity = ov_chipkaart.class)
     private List<ov_chipkaart> ovchipkaarten = new ArrayList<>();
 
     public Product(){}

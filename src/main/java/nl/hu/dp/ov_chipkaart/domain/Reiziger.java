@@ -17,7 +17,7 @@ public class Reiziger {
     @JoinColumn(name = "reiziger_id", foreignKey = @ForeignKey(name = "reiziger_id"))
     private Adres adres;
     @OneToMany
-    @JoinColumn(name = "reiziger_id", foreignKey = @ForeignKey(name = "reiziger_id"))
+    @JoinColumn(name = "reiziger_id")
     private List<ov_chipkaart> ovchipkaarts = new ArrayList<ov_chipkaart>();
 
     public Reiziger(){}
@@ -95,11 +95,11 @@ public class Reiziger {
 
     @Override
     public String toString() {
-        String reizigerstring = "    #" + reiziger_id + ": " + voorletters + ". " + tussenvoegsel + achternaam + "(" + geboortedatum + ")";
+        String reizigerstring = "    #" + reiziger_id + ": " + voorletters + ". " + tussenvoegsel + achternaam + "(" + geboortedatum + ")" + getOvchipkaarts();
         if(getAdres() == null){
             return reizigerstring + " deze reiziger heeft geen adres";
         } else{
-            return reizigerstring + " deze reiziger woont op het adres:    #" + getAdres().getPostcode() + ". " + getAdres().getStraat() + getAdres().getWoonplaats();
+            return reizigerstring + " deze reiziger woont op het adres:    #" + getAdres().getPostcode() + ". " + getAdres().getStraat() + getAdres().getWoonplaats() + getOvchipkaarts();
         }
     }
 }
