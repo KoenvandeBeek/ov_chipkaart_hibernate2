@@ -88,6 +88,6 @@ public class ov_chipkaart {
     public void setReiziger(Reiziger reiziger) { this.reiziger = reiziger; }
 
     public String toString(){
-        return "kaartnummer: " + "" + kaart_nummer + ", " + "geldig_tot: " + " " + geldig_tot  + ", " + "klasse: " + " " + klasse + ", " + "saldo: " + " " + saldo + producten;
+        return "kaartnummer: " + "" + kaart_nummer + ", " + "geldig_tot: " + " " + geldig_tot  + ", " + "klasse: " + " " + klasse + ", " + "saldo: " + " " + saldo + ", " + "gekoppelde producten: " + "  \n" + producten;
     }
 }

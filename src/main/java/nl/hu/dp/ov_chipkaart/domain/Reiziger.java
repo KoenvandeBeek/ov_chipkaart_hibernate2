@@ -95,11 +95,11 @@ public class Reiziger {
 
     @Override
     public String toString() {
-        String reizigerstring = "    #" + reiziger_id + ": " + voorletters + ". " + tussenvoegsel + achternaam + "(" + geboortedatum + ")" + getOvchipkaarts();
+        String reizigerstring = "    #" + reiziger_id + ": " + voorletters + ". " + tussenvoegsel + achternaam + "(" + geboortedatum + ")" + "gekoppelde ovchipkaarten: " + "\n" + getOvchipkaarts();
         if(getAdres() == null){
             return reizigerstring + " deze reiziger heeft geen adres";
         } else{
-            return reizigerstring + " deze reiziger woont op het adres:    #" + getAdres().getPostcode() + ". " + getAdres().getStraat() + getAdres().getWoonplaats() + getOvchipkaarts();
+            return reizigerstring + " deze reiziger woont op het adres:    #" + getAdres().getPostcode() + ". " + getAdres().getStraat() + getAdres().getWoonplaats() +"gekoppelde ovchipkaarten:" + "\n" +  getOvchipkaarts();
         }
     }
 }
