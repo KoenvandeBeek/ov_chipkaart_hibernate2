@@ -1,27 +1,52 @@
 package nl.hu.dp.ov_chipkaart.domain;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import java.sql.SQLException;
 import java.util.List;
 
 public class OVChipkaartDAOHibernate implements OVChipkaartDAO{
+    private SessionFactory sessionFactory;
+
+    public OVChipkaartDAOHibernate(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     public boolean save(ov_chipkaart ov_chipkaart) throws SQLException {
-        return false;
+        Session sessie = sessionFactory.openSession();
+        sessie.beginTransaction();
+        sessie.save(ov_chipkaart);
+        sessie.getTransaction().commit();
+        sessie.close();
+        return true;
     }
 
     @Override
     public boolean update(ov_chipkaart ov_chipkaart) throws SQLException {
-        return false;
+        Session sessie = sessionFactory.openSession();
+        sessie.beginTransaction();
+        sessie.update(ov_chipkaart);
+        sessie.getTransaction().commit();
+        sessie.close();
+        return true;
     }
 
     @Override
     public boolean delete(ov_chipkaart ov_chipkaart) throws SQLException {
-        return false;
+        Session sessie = sessionFactory.openSession();
+        sessie.beginTransaction();
+        sessie.delete(ov_chipkaart);
+        sessie.getTransaction().commit();
+        sessie.close();
+        return true;
     }
 
     @Override
     public List<ov_chipkaart> findall() throws SQLException {
-        return null;
+        List<ov_chipkaart> ov_chipkaarten = (List<ov_chipkaart>) sessionFactory.openSession().createQuery("FROM ov_chipkaart").getResultList();
+        return ov_chipkaarten;
     }
 
     @Override

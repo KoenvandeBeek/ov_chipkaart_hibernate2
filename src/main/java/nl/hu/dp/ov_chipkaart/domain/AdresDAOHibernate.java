@@ -54,7 +54,7 @@ public class AdresDAOHibernate implements AdresDAO{
 
     @Override
     public List<Adres> findAll() {
-        List<Adres> adres = (List<Adres>) sessionFactory.openSession().createQuery("FROM Adres").getResultList();
+        List<Adres> adres = (List<Adres>) sessionFactory.openSession().createQuery("FROM adres").getResultList();
         return adres;
     }
 
