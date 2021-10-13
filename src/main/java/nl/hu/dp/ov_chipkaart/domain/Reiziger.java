@@ -14,7 +14,7 @@ public class Reiziger {
     private String achternaam;
     private Date geboortedatum;
     @OneToOne
-    @JoinColumn(name = "reiziger_id", foreignKey = @ForeignKey(name = "reiziger_id"))
+    @JoinColumn(name = "adres_id", foreignKey = @ForeignKey(name = "adres_id"))
     private Adres adres;
     @OneToMany
     @JoinColumn(name = "reiziger_id")
@@ -95,7 +95,7 @@ public class Reiziger {
 
     @Override
     public String toString() {
-        String reizigerstring = "    #" + reiziger_id + ": " + voorletters + ". " + tussenvoegsel + achternaam + "(" + geboortedatum + ")" + "gekoppelde ovchipkaarten: " + "\n" + getOvchipkaarts();
+        String reizigerstring = "    #" + reiziger_id + ": " + voorletters + ". " + tussenvoegsel + achternaam + "(" + geboortedatum + ")" + "gekoppelde ovchipkaarten: " + "\n" + ovchipkaarts;
         if(getAdres() == null){
             return reizigerstring + " deze reiziger heeft geen adres";
         } else{
