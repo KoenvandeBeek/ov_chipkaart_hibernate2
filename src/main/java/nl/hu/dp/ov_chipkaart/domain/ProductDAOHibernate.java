@@ -1,9 +1,16 @@
 package nl.hu.dp.ov_chipkaart.domain;
 
+import org.hibernate.SessionFactory;
+
 import java.sql.SQLException;
 import java.util.List;
 
 public class ProductDAOHibernate implements ProductDAO{
+    private SessionFactory sessionFactory;
+
+    public ProductDAOHibernate(SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
+    }
     @Override
     public boolean save(Product product) throws SQLException {
         return false;

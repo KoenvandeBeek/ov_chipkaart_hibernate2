@@ -14,7 +14,7 @@ public class Reiziger {
     private String achternaam;
     private Date geboortedatum;
     @OneToOne
-    @JoinColumn(name = "adres_id", foreignKey = @ForeignKey(name = "adres_id"))
+    @JoinColumn(name = "reiziger_id", foreignKey = @ForeignKey(name = "adres_id"))
     private Adres adres;
     @OneToMany
     @JoinColumn(name = "reiziger_id")

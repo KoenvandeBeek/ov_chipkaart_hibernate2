@@ -1,6 +1,7 @@
 package nl.hu.dp.ov_chipkaart.domain;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 public interface ReizigerDAO {

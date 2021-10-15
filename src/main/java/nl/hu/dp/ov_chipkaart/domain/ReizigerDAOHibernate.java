@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 public class ReizigerDAOHibernate implements ReizigerDAO{
@@ -54,7 +55,8 @@ public class ReizigerDAOHibernate implements ReizigerDAO{
 
     @Override
     public List<Reiziger> findByGbdatum(String datum) throws SQLException {
-        List<Reiziger> reizigersgb = (List<Reiziger>) sessionFactory.openSession().createQuery("FROM Reiziger WHERE geboortedatum = " + datum).getResultList();
+//        Date datedatum  = (datum);
+        List<Reiziger> reizigersgb = (List<Reiziger>) sessionFactory.openSession().createQuery("FROM Reiziger WHERE geboortedatum = '" + Date.valueOf(datum) + "'").getResultList();
         return reizigersgb;
     }
 

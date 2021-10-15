@@ -48,13 +48,13 @@ public class AdresDAOHibernate implements AdresDAO{
 
     @Override
     public Adres findByReiziger(Reiziger reiziger) {
-        Adres adres = (Adres) sessionFactory.openSession().createQuery("FROM adres WHERE reiziger_id = " + reiziger.getReiziger_id()).getSingleResult();
+        Adres adres = (Adres) sessionFactory.openSession().createQuery("FROM Adres WHERE reiziger = " + reiziger.getReiziger_id()).getSingleResult();
         return adres;
     }
 
     @Override
     public List<Adres> findAll() {
-        List<Adres> adres = (List<Adres>) sessionFactory.openSession().createQuery("FROM adres").getResultList();
+        List<Adres> adres = (List<Adres>) sessionFactory.openSession().createQuery("FROM Adres").getResultList();
         return adres;
     }
 
