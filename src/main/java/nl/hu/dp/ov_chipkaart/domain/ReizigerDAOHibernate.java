@@ -23,7 +23,6 @@ public class ReizigerDAOHibernate implements ReizigerDAO{
     public boolean save(Reiziger reiziger) throws SQLException {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-//        ovChipkaartDAO = new OVChipkaartDAOHibernate(sessionFactory);
         for(ov_chipkaart ovchipkaart : reiziger.getOvchipkaarts()){
             ovchipkaart.setReiziger(reiziger);
             ovChipkaartDAO.save(ovchipkaart);
@@ -71,11 +70,6 @@ public class ReizigerDAOHibernate implements ReizigerDAO{
     public List<Reiziger> findAll() throws SQLException {
         List<Reiziger> reizigers = (List<Reiziger>) sessionFactory.openSession().createQuery("FROM Reiziger").getResultList();
         return reizigers;
-    }
-
-    @Override
-    public void setAdao(AdresDAO adao) {
-
     }
 
     @Override

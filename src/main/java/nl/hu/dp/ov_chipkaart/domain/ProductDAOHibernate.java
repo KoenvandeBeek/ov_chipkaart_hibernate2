@@ -65,8 +65,5 @@ public class ProductDAOHibernate implements ProductDAO{
 //        return null;
 //    }
 
-    @Override
-    public void setOVdao(OVChipkaartDAO OVdao) {
 
-    }
 }

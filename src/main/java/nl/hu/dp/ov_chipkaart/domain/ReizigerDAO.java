@@ -11,6 +11,5 @@ public interface ReizigerDAO {
     Reiziger findById(int id) throws SQLException;
     List<Reiziger> findByGbdatum(String datum) throws SQLException;
     List<Reiziger> findAll() throws SQLException;
-    void setAdao(AdresDAO adao);
     void setOVdao(OVChipkaartDAO OVDao);
 }
