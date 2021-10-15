@@ -13,6 +13,8 @@ public class ReizigerDAOHibernate implements ReizigerDAO{
 
     private SessionFactory sessionFactory;
 
+    private OVChipkaartDAO ovChipkaartDAO;
+
     public ReizigerDAOHibernate(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
     }
@@ -21,6 +23,11 @@ public class ReizigerDAOHibernate implements ReizigerDAO{
     public boolean save(Reiziger reiziger) throws SQLException {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+//        ovChipkaartDAO = new OVChipkaartDAOHibernate(sessionFactory);
+        for(ov_chipkaart ovchipkaart : reiziger.getOvchipkaarts()){
+            ovchipkaart.setReiziger(reiziger);
+            ovChipkaartDAO.save(ovchipkaart);
+        }
         session.save(reiziger);
         session.getTransaction().commit();
         session.close();

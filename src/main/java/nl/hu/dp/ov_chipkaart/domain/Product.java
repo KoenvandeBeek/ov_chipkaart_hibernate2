@@ -6,6 +6,7 @@ import java.util.List;
 @Entity
 public class Product {
     @Id
+//    @GeneratedValue
     @Column(name = "product_nummer")
     private int product_nummer;
     private String naam;

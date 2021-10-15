@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Adres {
     @Id
+//    @GeneratedValue
     @Column(name = "adres_id")
     private int adres_id;
     private String postcode;

@@ -7,6 +7,7 @@ import java.util.List;
 @Entity
 public class Reiziger {
     @Id
+//    @GeneratedValue
     @Column(name = "reiziger_id")
     private int reiziger_id;
     private String voorletters;

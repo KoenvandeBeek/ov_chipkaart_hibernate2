@@ -8,13 +8,14 @@ import java.util.List;
 @Entity
 public class ov_chipkaart {
     @Id
+//    @GeneratedValue
     @Column(name = "kaart_nummer")
     private int kaart_nummer;
     private Date geldig_tot;
     private int klasse;
     private double saldo;
     @ManyToOne
-    @JoinColumn(name = "reiziger_id")
+    @JoinColumn(name = "reiziger_id", foreignKey = @ForeignKey(name = "kaart_nummer"))
     private Reiziger reiziger;
     @ManyToMany
     @JoinTable(name = "ov_chipkaart_product",

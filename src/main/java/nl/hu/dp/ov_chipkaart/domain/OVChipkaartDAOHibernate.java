@@ -51,7 +51,8 @@ public class OVChipkaartDAOHibernate implements OVChipkaartDAO{
 
     @Override
     public ov_chipkaart findbyId(int id) throws SQLException {
-        return null;
+        ov_chipkaart ovChipkaart = (ov_chipkaart) sessionFactory.openSession().createQuery("FROM ov_chipkaart WHERE kaart_nummer = " + id).getSingleResult();
+        return ovChipkaart;
     }
 
     @Override
@@ -60,27 +61,9 @@ public class OVChipkaartDAOHibernate implements OVChipkaartDAO{
     }
 
     @Override
-    public void setRdao(ReizigerDAO rdao) {
-
-    }
-
-    @Override
-    public void setPdao(ProductDAO pdao) {
-
-    }
-
-    @Override
-    public boolean saveOVChipkaart_product(ov_chipkaart ov_chipkaart, Product product) throws SQLException {
-        return false;
-    }
-
-    @Override
     public List<ov_chipkaart> getOVChipkaartenbyProduct(Product product) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public boolean deleteOV_chipkaartProductbyKaart_nummer(ov_chipkaart ov_chipkaart) throws SQLException {
-        return false;
+        Session sessie = sessionFactory.openSession();
+        Product product1 = sessie.createQuery(String.format("from Product where product_nummer = %s", product.getProduct_nummer()), Product.class).getSingleResult();
+        return product1.getOvchipkaarten();
     }
 }

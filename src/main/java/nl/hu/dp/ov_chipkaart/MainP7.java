@@ -14,6 +14,7 @@ public class MainP7 {
         testReizigerDAO();
         testAdresDAO();
         testOVChipkaartDAO();
+        testProductDAO();
     }
         public static void testReizigerDAO() throws SQLException {
             Configuration config = new Configuration();
@@ -36,10 +37,11 @@ public class MainP7 {
             // Maak een nieuwe reiziger aan en persisteer deze in de database
             String gbdatum = "1981-03-14";
             Reiziger sietske = new Reiziger("S", "", "Boers", Date.valueOf(gbdatum));
-//            System.out.print("[Test] voor toevoegen nieuwe reiziger" + reizigers.size() + " reizigers, na toevoegen nieuwe reiziger:");
-//            rdao.save(sietske);
-//            reizigers = rdao.findAll();
-//            System.out.println(reizigers.size() + " reizigers\n");
+            sietske.setReiziger_id(157);
+            System.out.print("[Test] voor toevoegen nieuwe reiziger" + reizigers.size() + " reizigers, na toevoegen nieuwe reiziger:");
+            rdao.save(sietske);
+            reizigers = rdao.findAll();
+            System.out.println(reizigers.size() + " reizigers\n");
 
             // Voeg aanvullende tests van de ontbrekende CRUD-operaties in.
 
@@ -96,9 +98,11 @@ public class MainP7 {
         // adres toevoegen aan de database
         String gbdatum = "1981-03-14";
         Reiziger r = new Reiziger( "S", "T", "Boers", Date.valueOf(gbdatum));
+        r.setReiziger_id(160);
         rdao.save(r);
         Adres a = new Adres("3424SW", "32", "langestraat", "Utrecht");
 //        a.setReiziger(r);
+        a.setAdres_id(12);
         System.out.print("[Test] voor toevoegen nieuw adres" + adressen.size() + " na toevoegen nieuw adres:");
         a.setReiziger(r);
         r.setAdres(a);
@@ -117,7 +121,16 @@ public class MainP7 {
         adres.setStraat("vischersplein");
         adao.update(adres);
         System.out.println("na aanpassen adres:");
-        adres = adao.findByReiziger(new Reiziger("G","van","Rijn",Date.valueOf(gbdatum)));
+        adres = adao.findByReiziger(gerrit);
+        System.out.println(adres);
+        System.out.println();
+
+//         adres vinden met reiziger
+        System.out.println("[Test] adres van reiziger met reiziger_id: 1, voorletter: G, tussenvoegsel: van, achternaam: Rijn en geboortedatum: 2002-09-17");
+        gbdatum = "2002-09-17";
+        Reiziger r1 = new Reiziger("G","van","Rijn",Date.valueOf(gbdatum));
+        r1.setReiziger_id(5);
+        adres = adao.findByReiziger(r1);
         System.out.println(adres);
         System.out.println();
 
@@ -130,13 +143,7 @@ public class MainP7 {
         System.out.println();
 
 
-        // adres vinden met reiziger
-//        System.out.println("[Test] adres van reiziger met reiziger_id: 1, voorletter: G, tussenvoegsel: van, achternaam: Rijn en geboortedatum: 2002-09-17");
-//        gbdatum = "2002-09-17";
-//        Reiziger r1 = new Reiziger("G","van","Rijn",Date.valueOf(gbdatum));
-//        adres = adao.findByReiziger(r1);
-//        System.out.println(adres);
-//        System.out.println();
+
     }
     private static void testOVChipkaartDAO() throws SQLException {
         Configuration config = new Configuration();
@@ -145,6 +152,7 @@ public class MainP7 {
         SessionFactory sessionFactory = config.buildSessionFactory();
         ReizigerDAO rdao = new ReizigerDAOHibernate(sessionFactory);
         OVChipkaartDAO OVdao = new OVChipkaartDAOHibernate(sessionFactory);
+        rdao.setOVdao(OVdao);
         System.out.println("\n---------- Test OVCHipkaartDAO -------------");
 
         List<ov_chipkaart> ovchipkaarten = OVdao.findall();
@@ -157,11 +165,16 @@ public class MainP7 {
         //test reiziger
         String gbdatum1 = "1980-03-14";
         Reiziger r4 = new Reiziger("R", "", "Ossenwaarde", Date.valueOf(gbdatum1));
+        r4.setReiziger_id(161);
         String geldig_tot1 = "2021-12-15";
         ov_chipkaart ov2 = new ov_chipkaart(Date.valueOf(geldig_tot1), 2, 10.00);
+        ov2.setKaart_nummer(90718);
+        ov2.setReiziger(r4);
         r4.addOVChipkaart(ov2);
         String geldig_tot2 = "2021-12-15";
         ov_chipkaart ov1 = new ov_chipkaart(Date.valueOf(geldig_tot2), 2, 10.00);
+        ov1.setKaart_nummer(90719);
+        ov1.setReiziger(r4);
         r4.addOVChipkaart(ov1);
         rdao.save(r4);
         System.out.println(r4.getOvchipkaarts().size());
@@ -191,10 +204,13 @@ public class MainP7 {
         //test ovchipkaart aanmaken met 2 producten
         String geldig_tot1 = "2021-12-15";
         ov_chipkaart ov1 = new ov_chipkaart(Date.valueOf(geldig_tot1), 2, 10.00);
+        ov1.setKaart_nummer(90723);
         ov1.setReiziger(rdao.findById(1));
         Product p1 = new Product("fiets", "mooie fiets", 100);
+        p1.setProduct_nummer(102);
         pdao.save(p1);
         Product p2 = new Product("auto", "mooie auto", 100);
+        p2.setProduct_nummer(103);
         pdao.save(p2);
         ov1.addProduct(p1);
         ov1.addProduct(p2);
@@ -203,8 +219,8 @@ public class MainP7 {
         //test ovchipkaart aanpassen met een product te verwijderen van 1 ovchipkaart_product
         System.out.println("[Test] ovchipkaart voor aanpassen ovchipkaart en verwijderen van 1 product van het object: "+ OVdao.findbyId(ov1.getKaart_nummer()));
         ov1.setGeldig_tot(Date.valueOf("2021-12-16"));
-        ov1.removeproduct(p1);
         Product p3 = new Product("auto", "mooie auto", 100);
+        p3.setProduct_nummer(104);
         pdao.save(p3);
         ov1.addProduct(p3);
         OVdao.update(ov1);
